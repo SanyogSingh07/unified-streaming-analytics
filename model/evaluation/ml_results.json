@@ -1,0 +1,12 @@
+{
+    "naive_bayes": {
+        "accuracy": 0.9996823127630847,
+        "precision": 1.0,
+        "recall": 0.9982847341337907,
+        "f1_score": 0.9991416309012876,
+        "total_test_samples": 12591,
+        "hits_in_test": 2332,
+        "predicted_hits": 2332
+    },
+    "association_rules": []
+}

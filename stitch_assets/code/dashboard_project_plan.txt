@@ -1,0 +1,23 @@
+# Streaming Data Analysis Dashboard PRD
+
+## Overview
+A high-fidelity interactive dashboard to visualize and compare content datasets from Netflix, Disney+, and Amazon Prime Video. The UI dynamically adapts its theme based on the selected streaming service.
+
+## Core Features
+1. **Dynamic Theming**: Switching tabs changes the entire color palette, typography, and logo branding to match the selected service.
+2. **Interactive Data Cards**: High-level metrics (Total Titles, Avg. Rating, Top Genre).
+3. **Growth Charts**: Visualizing content library growth over time.
+4. **Content Breakdown**: Donut charts showing Movie vs. TV Show distribution.
+5. **Global Filters**: Filter data by Year, Rating, or Region across all services.
+
+## Screens
+1. **Netflix View**: Signature red/dark theme. Focus on original content growth.
+2. **Disney+ View**: Blue/cinematic theme. Focus on franchise distribution (Marvel, Star Wars, Pixar).
+3. **Prime Video View**: Dark teal theme. Focus on library volume and global reach.
+4. **Comparison View**: A neutral dark theme comparing all three services side-by-side.
+
+## Visual Direction
+- **Netflix**: "The Bold Original" (Red, Black, White).
+- **Disney+**: "The Cinematic Magic" (Midnight Blue, Silver, Blue).
+- **Prime Video**: "The Global Library" (Dark Teal, Prime Blue).
+- **Layout**: Clean grid-based dashboard with glassmorphism effects for cards.

@@ -1,0 +1,6 @@
+{
+  "name": "StreamAnalytics",
+  "description": "A beautifully crafted, dark-themed streaming analytics dashboard for Netflix, Disney+, and Prime Video streaming catalog metrics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "STREAM_OS IMDB Intelligence Dashboard",
+  "description": "Interactive media analytics and intelligence command center with real-time AI-powered movie search, sentiment analysis, and trends exploration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Custom Editorial Aesthetic Colors */
+  --color-primary: #F5F5F0; /* Ivory / Off-white */
+  --color-primary-container: #1C1C1A; /* Charcoal / Warm Dark */
+  --color-on-primary: #0A0A0A; /* Elegant Deep Off-Black */
+  --color-on-primary-container: #F5F5F0;
+  
+  --color-tertiary: #E11D48; /* Red/Rose Editorial Accent */
+  --color-on-tertiary: #FFFFFF;
+  --color-tertiary-container: #3B0712;
+  --color-on-tertiary-container: #FDA4AF;
+
+  --color-background: #0A0A0A; /* Deep Off-Black */
+  --color-surface: #111111; /* Clean Muted Off-Black */
+  --color-surface-dim: #0D0D0D;
+  --color-surface-bright: #262626;
+  --color-surface-container-lowest: #080808;
+  --color-surface-container-low: #121212;
+  --color-surface-container: #161616;
+  --color-surface-container-high: #1D1D1C;
+  --color-surface-container-highest: #282826;
+  
+  --color-on-surface: #F5F5F0; /* Ivory */
+  --color-on-surface-variant: #A3A39C; /* Muted Ivory */
+  --color-outline: #52524E; /* Border gray-olive */
+  --color-outline-variant: #262624;
+}
+
+/* Custom global styles & scrollbar */
+html, body {
+  background-color: #0A0A0A;
+  color: #F5F5F0;
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 10, 1);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(245, 245, 240, 0.15);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 245, 240, 0.3);
+}
+
+/* Editorial Glass Panel style */
+.glass-panel {
+  background: rgba(17, 17, 17, 0.8);
+  -webkit-backdrop-filter: blur(25px);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(245, 245, 240, 0.08);
+}
+
+.tech-grid {
+  background-image: radial-gradient(circle, rgba(245, 245, 240, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Elegant serif headings and typography classes */
+.editorial-serif {
+  font-family: var(--font-serif);
+}
+
+.editorial-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+}

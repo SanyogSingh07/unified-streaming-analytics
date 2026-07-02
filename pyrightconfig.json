@@ -1,0 +1,7 @@
+{
+  "extraPaths": [
+    "C:\\Users\\sanyo\\AppData\\Roaming\\Python\\Python314\\site-packages",
+    "deployment/backend",
+    "model/training"
+  ]
+}

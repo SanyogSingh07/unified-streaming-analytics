@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+build/
+dist/
+coverage/
+
+# Environment & secrets
+.env*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# OS & logs
+.DS_Store
+Thumbs.db
+*.log
+
+# IDE & local agent config (may contain API keys)
+.vscode/
+.idea/
+.agents/
+
+# Archives (source folders are tracked instead)
+streamanalytics.zip
+
+# Large generated artifacts (regenerate via ingest/download scripts)
+model/datasets/processed/
