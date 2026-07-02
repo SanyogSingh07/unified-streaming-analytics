@@ -1,0 +1,74 @@
+name: Tests & Coverage
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  unit-tests:
+    name: Unit & Integration Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements/base.txt
+          pip install -r requirements/ml.txt
+          pip install -r requirements/api.txt
+          pip install -r requirements/dev.txt
+
+      - name: Run tests
+        run: |
+          pytest tests/ -v \
+            --cov=deployment/backend \
+            --cov=model \
+            --cov-report=xml \
+            --cov-report=html \
+            --cov-fail-under=70 \
+            -p no:warnings
+
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
+
+      - name: Upload HTML coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: htmlcov/
+          retention-days: 7
+
+  model-tests:
+    name: ML Model Regression Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install ML dependencies
+        run: |
+          pip install -r requirements/base.txt
+          pip install -r requirements/ml.txt
+          pip install pytest
+
+      - name: Run model tests
+        run: pytest tests/test_model.py -v --tb=short

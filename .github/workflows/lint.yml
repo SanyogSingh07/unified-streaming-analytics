@@ -1,0 +1,64 @@
+name: Lint & Format Check
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  ruff:
+    name: Ruff Linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/ruff-action@v1
+        with:
+          args: check .
+
+  black:
+    name: Black Formatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Black
+        run: pip install black==24.4.2
+      - name: Check formatting
+        run: black --check .
+
+  mypy:
+    name: MyPy Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install dependencies
+        run: |
+          pip install -r requirements/api.txt
+          pip install -r requirements/ml.txt
+          pip install mypy types-requests pandas-stubs
+      - name: Run MyPy
+        run: mypy deployment/backend/ --ignore-missing-imports
+
+  eslint:
+    name: ESLint (Frontend)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: deployment/frontend/package-lock.json
+      - name: Install dependencies
+        working-directory: deployment/frontend
+        run: npm ci
+      - name: Run ESLint
+        working-directory: deployment/frontend
+        run: npx eslint src/ --ext .ts,.tsx --max-warnings 0
