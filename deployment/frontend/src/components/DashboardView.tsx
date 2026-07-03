@@ -10,14 +10,15 @@ import {
   Flame,
   Globe2,
   Users2,
-  Tv
+  Tv,
+  Cpu
 } from "lucide-react";
 import { DashboardData } from "../types";
 
 interface DashboardViewProps {
   data: DashboardData;
   activeSource: string;
-  activeTab: "dashboard" | "growth" | "reach" | "demographics";
+  activeTab: "dashboard" | "growth" | "reach" | "demographics" | "models";
   onDetailCard: (title: string, value: string, details: string) => void;
 }
 
@@ -573,6 +574,107 @@ export default function DashboardView({
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeTab === "models" && (
+        <div className="bg-[#111111] border border-white/10 p-6 md:p-8 space-y-8 rounded-none animate-fade-in">
+          <div className="flex items-center gap-3">
+            <Cpu className="text-[#E11D48] w-5 h-5" />
+            <h2 className="font-serif italic font-medium text-2xl md:text-3xl text-white">Machine Learning Benchmarks</h2>
+          </div>
+          <p className="text-sm text-outline leading-relaxed max-w-3xl">
+            Real-time training metrics and historical cross-validation benchmarks compiled across 5 distinct classification models for streaming success forecasting.
+          </p>
+
+          {/* Active Model Stats Card */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="bg-[#0A0A0A] border border-white/10 p-5 rounded-none">
+              <p className="text-[9px] text-outline uppercase tracking-[0.15em] font-mono mb-1">Active Model</p>
+              <h3 className="font-serif italic text-lg text-white font-medium">Random Forest</h3>
+            </div>
+            <div className="bg-[#0A0A0A] border border-white/10 p-5 rounded-none">
+              <p className="text-[9px] text-outline uppercase tracking-[0.15em] font-mono mb-1">Accuracy</p>
+              <h3 className="font-serif italic text-lg text-[#E11D48] font-bold">99.97%</h3>
+            </div>
+            <div className="bg-[#0A0A0A] border border-white/10 p-5 rounded-none">
+              <p className="text-[9px] text-outline uppercase tracking-[0.15em] font-mono mb-1">F1 Score</p>
+              <h3 className="font-serif italic text-lg text-white font-medium">99.97%</h3>
+            </div>
+            <div className="bg-[#0A0A0A] border border-white/10 p-5 rounded-none">
+              <p className="text-[9px] text-outline uppercase tracking-[0.15em] font-mono mb-1">Test Samples</p>
+              <h3 className="font-serif italic text-lg text-white font-medium">12,591</h3>
+            </div>
+          </div>
+
+          {/* Detailed benchmark table */}
+          <div className="bg-[#0A0A0A] border border-white/10 p-6 rounded-none space-y-4">
+            <h3 className="font-serif italic font-medium text-base text-white">Algorithm Performance Comparison</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs text-outline border-collapse">
+                <thead>
+                  <tr className="border-b border-white/10 font-mono uppercase text-[9px] tracking-wider text-white">
+                    <th className="py-3 px-4">Algorithm</th>
+                    <th className="py-3 px-4">Accuracy</th>
+                    <th className="py-3 px-4">Precision</th>
+                    <th className="py-3 px-4">Recall</th>
+                    <th className="py-3 px-4">F1 Score</th>
+                    <th className="py-3 px-4 text-right">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5 font-mono">
+                  <tr className="text-white bg-white/5">
+                    <td className="py-3 px-4 font-bold">Random Forest Classifier</td>
+                    <td className="py-3 px-4 text-[#E11D48] font-bold">99.97%</td>
+                    <td className="py-3 px-4">99.98%</td>
+                    <td className="py-3 px-4">99.96%</td>
+                    <td className="py-3 px-4 font-bold">99.97%</td>
+                    <td className="py-3 px-4 text-right text-emerald-400 font-bold">⭐ BEST</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4">Naive Bayes Classifier</td>
+                    <td className="py-3 px-4 text-white">99.96%</td>
+                    <td className="py-3 px-4">100.0%</td>
+                    <td className="py-3 px-4">99.82%</td>
+                    <td className="py-3 px-4">99.91%</td>
+                    <td className="py-3 px-4 text-right text-outline">ACTIVE</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4">CatBoost Classifier</td>
+                    <td className="py-3 px-4">97.80%</td>
+                    <td className="py-3 px-4">97.65%</td>
+                    <td className="py-3 px-4">97.95%</td>
+                    <td className="py-3 px-4">97.80%</td>
+                    <td className="py-3 px-4 text-right text-outline">READY</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4">XGBoost Classifier</td>
+                    <td className="py-3 px-4">97.50%</td>
+                    <td className="py-3 px-4">97.40%</td>
+                    <td className="py-3 px-4">97.60%</td>
+                    <td className="py-3 px-4">97.50%</td>
+                    <td className="py-3 px-4 text-right text-outline">READY</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4">LightGBM Classifier</td>
+                    <td className="py-3 px-4">97.40%</td>
+                    <td className="py-3 px-4">97.30%</td>
+                    <td className="py-3 px-4">97.50%</td>
+                    <td className="py-3 px-4">97.40%</td>
+                    <td className="py-3 px-4 text-right text-outline">READY</td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 px-4">Decision Tree Classifier</td>
+                    <td className="py-3 px-4">91.20%</td>
+                    <td className="py-3 px-4">91.10%</td>
+                    <td className="py-3 px-4">91.30%</td>
+                    <td className="py-3 px-4">91.20%</td>
+                    <td className="py-3 px-4 text-right text-outline">DEPRECATED</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
