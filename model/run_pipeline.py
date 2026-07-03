@@ -13,8 +13,17 @@ from model.training.train_model import train_and_evaluate
 def main():
     root_dir = os.path.dirname(os.path.abspath(__file__))
     
-    # Path to kaggle dataset
-    csv_path = r"C:\Users\sanyo\.cache\kagglehub\datasets\raedaddala\imdb-movies-from-1960-to-2023\versions\6\Dataset\final_dataset.csv"
+    # Fetch/download Kaggle dataset dynamically (works locally and in CI runners)
+    import kagglehub
+    print("Fetching Kaggle dataset 'raedaddala/imdb-movies-from-1960-to-2023'...")
+    csv_dir = kagglehub.dataset_download("raedaddala/imdb-movies-from-1960-to-2023")
+    csv_path = os.path.join(csv_dir, "final_dataset.csv")
+    if not os.path.exists(csv_path):
+        # Fallback to directory search if file is nested differently
+        for root, dirs, files in os.walk(csv_dir):
+            if "final_dataset.csv" in files:
+                csv_path = os.path.join(root, "final_dataset.csv")
+                break
     
     # Pipeline Execution
     df = load_raw_data(csv_path)

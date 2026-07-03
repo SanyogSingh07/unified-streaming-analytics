@@ -145,7 +145,7 @@ def get_dashboard_aggregates(db: Session = Depends(get_db)):
     ]
     
     # Highest rated genres (using genres that have at least 50 titles to ensure relevance)
-    genre_avg_ratings = []
+    genre_avg_ratings: list[dict[str, Any]] = []
     for genre, ratings in genre_ratings.items():
         if len(ratings) >= 50:
             genre_avg_ratings.append({

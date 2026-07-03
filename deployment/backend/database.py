@@ -2,8 +2,8 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-# DuckDB database file path in the model folder
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "..", "model", "datasets", "processed", "analytics.db")
+os.makedirs(os.path.dirname(os.path.abspath(DB_PATH)), exist_ok=True)
 DATABASE_URL = f"duckdb:///{os.path.abspath(DB_PATH)}"
 
 engine = create_engine(
