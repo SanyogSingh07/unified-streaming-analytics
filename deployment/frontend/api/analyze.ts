@@ -33,6 +33,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         { label: "Jul", value: 91 },{ label: "Aug", value: 83 },{ label: "Sep", value: 67 },
         { label: "Oct", value: 79 },
       ],
+      trendsQuarterly: [
+        { label: "Q1", value: 48 },
+        { label: "Q2", value: 74 },
+        { label: "Q3", value: 91 },
+        { label: "Q4", value: 67 }
+      ],
+      feed: [
+        {
+          title: "Audience Surge",
+          description: `Analysis completed for "${query}": strong positive sentiment detected globally.`,
+          timestamp: "Just now"
+        },
+        {
+          title: "Market Performance",
+          description: "Box office trends align with predictive model features.",
+          timestamp: "5 mins ago"
+        }
+      ],
       hotspots: [
         { city: "New York",  lat: 40.7128,  lng: -74.0060, intensity: 0.88 },
         { city: "London",   lat: 51.5074,  lng: -0.1278,  intensity: 0.76 },
@@ -52,10 +70,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       contents: `You are a streaming analytics AI. Analyze "${query}" and return ONLY valid JSON with these exact fields:
         movieTitle, indexedTitles (string), globalAverage (string like "7.4 / 10"), sentimentScore (0-100),
         sentimentDistribution (array of 6 numbers 0-100), boxOfficeRevenue (string), boxOfficeCorrelation (0-1),
-        genres (array of {name, growth} with % sign), trendsMonthly (array of 10 {label, value} month data),
+        genres (array of {name, growth} with % sign),
+        trendsMonthly (array of 10 {label, value} month data),
+        trendsQuarterly (array of 4 {label, value} quarter data),
+        feed (array of 2 {title, description, timestamp} update items),
         hotspots (array of {city, lat, lng, intensity} for 5 major cities). Return only JSON, no markdown.`,
     });
-    const text = response.text?.().replace(/```json|```/g, "").trim() ?? "{}";
+    const text = response.text?.replace(/```json|```/g, "").trim() ?? "{}";
     return res.status(200).json(JSON.parse(text));
   } catch (err) {
     console.error("Gemini error:", err);
