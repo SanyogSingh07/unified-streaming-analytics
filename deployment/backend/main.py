@@ -153,7 +153,7 @@ def get_dashboard_aggregates(db: Session = Depends(get_db)):
                 "avg": round(sum(ratings) / len(ratings), 2),
                 "count": len(ratings)
             })
-    genre_avg_ratings = sorted(genre_avg_ratings, key=lambda x: x["avg"], reverse=True)[:8]
+    genre_avg_ratings = sorted(genre_avg_ratings, key=lambda x: float(x["avg"]), reverse=True)[:8]
     
     # 3. Year distribution of releases (e.g. content growth)
     year_distribution = db.query(
