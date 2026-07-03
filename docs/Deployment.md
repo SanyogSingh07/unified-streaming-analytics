@@ -24,8 +24,9 @@ curl http://localhost:8000/
 ```
 
 Services:
-- Frontend → http://localhost:3000
-- Backend → http://localhost:8000
+
+- Frontend → `http://localhost:3000`
+- Backend → `http://localhost:8000`
 
 ---
 
@@ -80,7 +81,7 @@ docker compose -f docker-compose.prod.yml up -d
 ## Environment Variables for Production
 
 | Variable | Required | Description |
-|----------|----------|-------------|
+| ---------- | ---------- | ------------- |
 | `GEMINI_API_KEY` | ✅ Yes | Google Gemini AI API key |
 | `DATABASE_URL` | ✅ Yes | Database connection string |
 | `NODE_ENV` | ✅ Yes | Set to `production` |
@@ -103,7 +104,7 @@ curl http://localhost:3000/
 ## Cloud Deployment (Roadmap v2.0)
 
 | Platform | Status |
-|----------|--------|
+| ---------- | -------- |
 | AWS ECS / Fargate | 🔄 Planned |
 | Google Cloud Run | 🔄 Planned |
 | Azure Container Apps | 🔄 Planned |
@@ -115,7 +116,64 @@ curl http://localhost:3000/
 
 This project follows an enterprise-grade deployment and delivery model utilizing Vercel and GitHub Actions.
 
-### 1. Git Branching Strategy
+### 1. Vercel Environments
+
+Vercel provides three default environments—Local, Preview, and Production:
+
+#### Local Development Environment
+
+This environment is where you develop new features and fix bugs on your local machine. When building with the framework, use the Vercel CLI to pull the environment variables for your project.
+
+1. Install the Vercel CLI globally:
+
+   ```bash
+   npm i -g vercel
+   ```
+
+2. Link your Vercel project with your local directory:
+
+   ```bash
+   cd deployment/frontend
+   vercel link
+   ```
+
+3. Pull environment variables locally to populate your `.env.local` file:
+
+   ```bash
+   vercel env pull
+   ```
+
+#### Preview Environment (Pre-production)
+
+Preview environments allow you to deploy and test changes in a live setting, without affecting your production site.
+
+Vercel automatically creates a preview deployment when you:
+
+- Push a commit to a branch that is not your production branch (such as `develop` or `feature/*`).
+- Create a Pull Request (PR) on GitHub.
+- Deploy using the CLI without the `--prod` flag (e.g. `vercel`).
+
+Each deployment generates two types of URLs:
+
+- **Branch-specific URL**: Always points to the latest changes on that branch (e.g. `https://unified-streaming-analytics-git-develop.vercel.app`).
+- **Commit-specific URL**: Points to the exact deployment of that commit.
+
+#### Production Environment
+
+The Production environment is the live, user-facing version of your application.
+
+- **Auto-deployment**: Merging pull requests into your production branch (`master`) automatically triggers a production deployment.
+- **Manual CLI Deploy**: You can explicitly promote the current state to production via the CLI:
+
+  ```bash
+  vercel --prod
+  ```
+
+When a production deployment succeeds, Vercel updates the production domain (`https://unified-streaming-analytics.vercel.app`) to point to the new deployment.
+
+---
+
+### 2. Git Branching Strategy
 
 Our release process is designed to isolate unstable work and guarantee production stability:
 
@@ -127,15 +185,6 @@ Our release process is designed to isolate unstable work and guarantee productio
 ```text
 feature/new-feature ─► Preview Deployment ─► PR ─► Merge to develop ─► PR ─► Merge to master (Prod Deployment)
 ```
-
----
-
-### 2. Vercel Preview Deployments
-
-Every push to any non-production branch (such as `feature/*` or `develop`) automatically triggers a Vercel Preview Build.
-
-- **Unique URLs**: Each commit/push produces an isolated URL (e.g. `https://unified-streaming-analytics-git-feature-new-feature.vercel.app`).
-- **Visual Review**: Use preview URLs to perform QA, review UI styling, and test client API requests before committing code changes to production.
 
 ---
 
