@@ -124,8 +124,8 @@ def get_dashboard_aggregates(db: Session = Depends(get_db)):
     # 2. Top Genres (using clean in-memory logic because database contains comma separated values)
     movies = db.query(Movie.genres, Movie.vote_average).all()
     
-    genre_counts = {}
-    genre_ratings = {}
+    genre_counts: dict[str, int] = {}
+    genre_ratings: dict[str, list[float]] = {}
     
     for m in movies:
         if not m.genres:
