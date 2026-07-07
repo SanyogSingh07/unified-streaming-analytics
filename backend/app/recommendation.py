@@ -1,5 +1,6 @@
 import os
 import sys
+from typing import Any
 
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -11,13 +12,13 @@ models_dir = os.path.join(root_dir, "models")
 if models_dir not in sys.path:
     sys.path.insert(0, models_dir)
 
-from models import Movie
+from models import Movie  # noqa: E402
 
 # In-memory cache for TF-IDF results to keep recommendations fast
 vectorizer = TfidfVectorizer(stop_words="english")
-tfidf_matrix = None
-movies_cache = []
-title_to_idx = {}
+tfidf_matrix: Any = None
+movies_cache: list[Movie] = []
+title_to_idx: dict[str, int] = {}
 
 
 def build_recommendation_matrix(db: Session):
@@ -72,9 +73,9 @@ def get_recommendations(movie_title: str, db: Session, limit: int = 10):
     if title_clean not in title_to_idx:
         # Fallback: search for subtitle/fuzzy match in titles
         matched_idx = None
-        for k, v in title_to_idx.items():
-            if title_clean in k or k in title_clean:
-                matched_idx = v
+        for key, val in title_to_idx.items():
+            if title_clean in key or key in title_clean:
+                matched_idx = val
                 break
         if matched_idx is None:
             return []
