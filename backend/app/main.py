@@ -11,11 +11,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-# Ensure model folder is in path for absolute imports
+# Ensure models folder is in path for absolute imports
 root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.join(root_dir, "models"))
-sys.path.append(os.path.join(root_dir, "..", "model", "training"))
 
 # Forward declare SessionLocal
 from database import SessionLocal, get_db

@@ -10,6 +10,7 @@ services:
     volumes:
       - ./backend:/app
       - ./datasets:/datasets
+      - ./model:/model
     environment:
       - ENV=dev
 

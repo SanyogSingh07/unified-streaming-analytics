@@ -5,14 +5,12 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sqlalchemy.orm import Session
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-backend_dir = os.path.join(root_dir, "backend")
-models_dir = os.path.join(backend_dir, "models")
-if backend_dir not in sys.path:
-    sys.path.append(backend_dir)
+# Ensure models directory is in path
+root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+models_dir = os.path.join(root_dir, "models")
 if models_dir not in sys.path:
-    sys.path.append(models_dir)
+    sys.path.insert(0, models_dir)
+
 from models import Movie
 
 # In-memory cache for TF-IDF results to keep recommendations fast
