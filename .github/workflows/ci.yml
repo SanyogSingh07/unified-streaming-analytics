@@ -45,9 +45,8 @@ jobs:
 
       - name: Run pytest with coverage
         run: |
-          pytest tests/ -v --cov=backend --cov=model \
-            --cov-report=xml --cov-report=term-missing \
-            --ignore=tests/test_frontend.py
+          pytest backend/tests/ model/tests/ -v --cov=backend --cov=model \
+            --cov-report=xml --cov-report=term-missing
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
