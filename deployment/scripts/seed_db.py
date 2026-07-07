@@ -9,17 +9,17 @@ import os
 import subprocess
 import sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-BACKEND_DIR = os.path.join(ROOT, "deployment", "backend")
-sys.path.insert(0, BACKEND_DIR)
+sys.path.insert(0, os.path.join(ROOT, "backend", "app"))
+sys.path.insert(0, os.path.join(ROOT, "backend", "models"))
 
 print("=" * 55)
 print("  Netflix AI Analytics - Database Seeder")
 print("=" * 55)
 print()
 
-DATASETS_DIR = os.path.join(ROOT, "model", "datasets")
+DATASETS_DIR = os.path.join(ROOT, "datasets")
 required_files = [
     "mymoviedb.csv",
     "disney_plus_titles.csv",
