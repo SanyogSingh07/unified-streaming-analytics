@@ -15,6 +15,9 @@ jobs:
   python:
     name: Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
+    env:
+      CI: true
+      DATABASE_URL: sqlite:////tmp/analytics_ci.db
     strategy:
       matrix:
         python-version: ["3.11", "3.12"]
@@ -37,9 +40,12 @@ jobs:
           pip install -r requirements/api.txt
           pip install -r requirements/dev.txt
 
+      - name: Seed database
+        run: python deployment/scripts/seed_db.py
+
       - name: Run pytest with coverage
         run: |
-          pytest tests/ -v --cov=deployment/backend --cov=model \
+          pytest tests/ -v --cov=backend --cov=model \
             --cov-report=xml --cov-report=term-missing \
             --ignore=tests/test_frontend.py
 
@@ -67,18 +73,18 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
-          cache-dependency-path: deployment/frontend/package-lock.json
+          cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies
-        working-directory: deployment/frontend
+        working-directory: frontend
         run: npm ci
 
       - name: TypeScript type check
-        working-directory: deployment/frontend
+        working-directory: frontend
         run: npx tsc --noEmit
 
       - name: Build
-        working-directory: deployment/frontend
+        working-directory: frontend
         run: npm run build
         env:
           NODE_ENV: production
@@ -96,13 +102,15 @@ jobs:
       - name: Build backend image (no push)
         uses: docker/build-push-action@v5
         with:
-          context: deployment/backend
+          context: backend
+          file: deployment/docker/backend.Dockerfile
           push: false
           tags: netflix-analytics-backend:ci
 
       - name: Build frontend image (no push)
         uses: docker/build-push-action@v5
         with:
-          context: deployment/frontend
+          context: frontend
+          file: deployment/docker/frontend.Dockerfile
           push: false
           tags: netflix-analytics-frontend:ci

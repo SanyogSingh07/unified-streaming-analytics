@@ -30,7 +30,7 @@ jobs:
           pip install -r requirements/ml.txt
           pip install -r requirements/api.txt
           pip install -r requirements/dev.txt
-          pytest tests/ -v --tb=short
+          pytest backend/tests/ model/tests/ -v --tb=short
 
       - name: Extract version from tag
         id: version
@@ -55,7 +55,7 @@ jobs:
           EOF
 
       - name: Build frontend
-        working-directory: deployment/frontend
+        working-directory: frontend
         run: |
           npm ci
           npm run build

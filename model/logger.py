@@ -1,5 +1,6 @@
-import os
 import datetime
+import os
+
 
 class TrainingLogger:
     def __init__(self, logs_dir):
@@ -15,7 +16,17 @@ class TrainingLogger:
         with open(self.log_path, "a") as f:
             f.write(formatted_message)
 
-    def log_run_details(self, dataset_name, size, features_count, hyperparameters, metrics, training_time, model_path, error=None):
+    def log_run_details(
+        self,
+        dataset_name,
+        size,
+        features_count,
+        hyperparameters,
+        metrics,
+        training_time,
+        model_path,
+        error=None,
+    ):
         self.log("=========================================")
         self.log("           TRAINING RUN REPORT           ")
         self.log("=========================================")
@@ -25,11 +36,11 @@ class TrainingLogger:
         self.log(f"Hyperparameters: {hyperparameters}")
         self.log(f"Model Save Path: {model_path}")
         self.log(f"Training Time: {training_time}")
-        
+
         if error:
-            self.log(f"STATUS: FAILED")
+            self.log("STATUS: FAILED")
             self.log(f"Error Message: {error}")
         else:
-            self.log(f"STATUS: SUCCESSFUL")
+            self.log("STATUS: SUCCESSFUL")
             self.log(f"Final Metrics: {metrics}")
         self.log("=========================================\n")

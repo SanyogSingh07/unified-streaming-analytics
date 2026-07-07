@@ -44,6 +44,7 @@ htmlcov/
 model/datasets/processed/
 model/datasets/cache/
 model/datasets/parquet/
+test_ci.db
 
 # ─── Saved Model Binaries (Commit only explicitly) ───────────────────────────
 # Uncomment to exclude .pkl files from version control:

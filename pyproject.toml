@@ -1,6 +1,21 @@
 [tool.ruff]
 line-length = 88
 target-version = "py311"
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "node_modules",
+    "dist",
+    "build",
+    "*.egg-info",
+    "frontend",
+    "model/notebooks",
+    ".agents",
+]
+
+[tool.ruff.lint]
 select = [
     "E",   # pycodestyle errors
     "W",   # pycodestyle warnings
@@ -15,20 +30,16 @@ ignore = [
     "B008",  # do not perform function calls in default args
     "B905",  # zip() without explicit strict
 ]
-exclude = [
-    ".git",
-    ".venv",
-    "venv",
-    "__pycache__",
-    "node_modules",
-    "dist",
-    "build",
-    "*.egg-info",
-    "deployment/frontend",
-    "notebooks",
-]
 
-[tool.ruff.isort]
+[tool.ruff.lint.per-file-ignores]
+"backend/app/main.py" = ["E402"]
+"backend/models/models.py" = ["E402"]
+"model/training/train.py" = ["E402"]
+"model/training/recommendation.py" = ["E402"]
+"model/preprocessing/feature_engineering/build_features.py" = ["E701"]
+"model/preprocessing/cuda/cuda_eda_acceleration.py" = ["W291", "W293"]
+
+[tool.ruff.lint.isort]
 known-first-party = ["model", "deployment"]
 
 [tool.black]
@@ -43,7 +54,8 @@ exclude = '''
   | node_modules
   | dist
   | build
-  | deployment/frontend
+  | frontend
+  | \.agents
 )/
 '''
 
@@ -53,26 +65,26 @@ warn_return_any = true
 warn_unused_configs = true
 ignore_missing_imports = true
 exclude = [
-    "deployment/frontend/",
-    "notebooks/",
+    "frontend/",
+    "model/notebooks/",
     ".venv/",
 ]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["backend/tests", "model/tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
 addopts = "--tb=short -q"
 
 [tool.coverage.run]
-source = ["deployment/backend", "model"]
+source = ["backend", "model"]
 omit = [
     "*/tests/*",
     "*/__pycache__/*",
     "*.egg-info/*",
-    "deployment/frontend/*",
-    "notebooks/*",
+    "frontend/*",
+    "model/notebooks/*",
 ]
 
 [tool.coverage.report]

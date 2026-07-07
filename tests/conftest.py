@@ -2,12 +2,22 @@
 
 import os
 import sys
+
 import pytest
 
 # Ensure both backend and model are on the path
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(ROOT, "deployment", "backend"))
+sys.path.insert(0, os.path.join(ROOT, "backend", "app"))
+sys.path.insert(0, os.path.join(ROOT, "backend", "models"))
 sys.path.insert(0, os.path.join(ROOT, "model"))
+sys.path.insert(0, os.path.join(ROOT, "model", "preprocessing"))
+sys.path.insert(0, os.path.join(ROOT, "model", "training"))
+
+# Match CI: use SQLite when no database URL is configured.
+os.environ.setdefault(
+    "DATABASE_URL",
+    f"sqlite:///{os.path.join(ROOT, 'test_ci.db')}",
+)
 
 
 @pytest.fixture(scope="session")

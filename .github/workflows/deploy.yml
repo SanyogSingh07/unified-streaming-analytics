@@ -44,7 +44,8 @@ jobs:
       - name: Build & push backend image
         uses: docker/build-push-action@v5
         with:
-          context: deployment/backend
+          context: backend
+          file: deployment/docker/backend.Dockerfile
           push: true
           tags: ${{ steps.meta-backend.outputs.tags }}
           labels: ${{ steps.meta-backend.outputs.labels }}
@@ -64,7 +65,8 @@ jobs:
       - name: Build & push frontend image
         uses: docker/build-push-action@v5
         with:
-          context: deployment/frontend
+          context: frontend
+          file: deployment/docker/frontend.Dockerfile
           push: true
           tags: ${{ steps.meta-frontend.outputs.tags }}
           labels: ${{ steps.meta-frontend.outputs.labels }}
